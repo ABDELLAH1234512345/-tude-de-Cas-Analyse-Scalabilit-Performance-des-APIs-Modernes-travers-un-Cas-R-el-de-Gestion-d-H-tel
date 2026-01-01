@@ -99,4 +99,34 @@ public class Item {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    /**
+     * Explicit setter for identifier to avoid relying solely on Lombok in IDEs where
+     * annotation processing may be misconfigured.
+     *
+     * @param id item identifier to assign
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

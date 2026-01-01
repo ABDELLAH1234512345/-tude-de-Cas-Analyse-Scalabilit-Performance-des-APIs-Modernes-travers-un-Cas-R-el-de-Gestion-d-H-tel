@@ -63,7 +63,7 @@ public class DataGeneratorService {
     /**
      * Faker instance configured for French locale to generate realistic test data.
      */
-    private final Faker faker = new Faker(new Locale("fr"));
+    private final Faker faker = new Faker(Locale.of("fr"));
 
     /**
      * Constructor for dependency injection.

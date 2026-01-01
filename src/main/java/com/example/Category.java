@@ -79,4 +79,22 @@ public class Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("category") // Éviter la sérialisation infinie
     private List<Item> items; // Relation inverse : Liste des items
+
+    /**
+     * Explicit setter for identifier to avoid relying solely on Lombok in IDEs where
+     * annotation processing may be misconfigured.
+     *
+     * @param id category identifier to assign
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
