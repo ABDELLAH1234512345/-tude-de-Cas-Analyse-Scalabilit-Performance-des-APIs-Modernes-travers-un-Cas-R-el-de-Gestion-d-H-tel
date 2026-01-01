@@ -1,0 +1,7 @@
+{
+  "sku": "BENCH-${__time(YMD)}-${__Random(10000, 99999)}",
+  "name": "Benchmark Item ${__RandomString(30, abcdefghijklmnopqrstuvwxyz)}",
+  "price": ${__Random(10,1000)},
+  "stock": ${__Random(1,500)},
+  "category": "/categories/${__Random(1, 2000)}"
+}

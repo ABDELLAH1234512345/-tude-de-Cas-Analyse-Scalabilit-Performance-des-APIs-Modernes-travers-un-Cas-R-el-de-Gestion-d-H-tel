@@ -1,0 +1,6 @@
+{
+  "sku": "LOAD-TEST-${__Random(100000,999999)}",
+  "name": "LoadTest Item ${__RandomString(30, abcdefghijklmnopqrstuvwxyz)}",
+  "price": "${__Random(10,1000)}",
+  "stock": "${__Random(1,500)}"
+}

@@ -1,0 +1,86 @@
+# Maintainer: Halmaoui Abdellah
+
+# Build outputs
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Maven metadata
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/
+.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+
+# IDE state
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.code-workspace
+.classpath
+.project
+.settings/
+bin/
+out/
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Logs and temp
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.pid
+*.seed
+*.pid.lock
+hs_err_pid*
+replay_pid*
+
+# OS generated
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+.directory
+
+# JMeter artifacts
+jmeter-results/
+**/jmeter-results/
+*.jtl
+*_html/
+benchmark-results-*/
+
+# Monitoring data
+monitoring/prometheus/data/
+monitoring/grafana/data/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Local environment
+.env
+.env.local
+docker-compose.override.yml

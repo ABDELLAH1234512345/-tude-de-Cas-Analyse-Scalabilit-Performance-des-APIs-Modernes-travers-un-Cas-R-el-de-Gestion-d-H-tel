@@ -1,0 +1,281 @@
+{
+  "title": "Benchmark REST API - Comparaison des 3 Variantes",
+  "tags": [
+    "benchmark",
+    "rest-api",
+    "comparison"
+  ],
+  "timezone": "browser",
+  "panels": [
+    {
+      "title": "Requ\u00eates par Seconde (RPS)",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "rate(http_server_requests_seconds_count{variant=\"A\"}[1m])",
+          "legendFormat": "Variante A (Jersey)",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(http_server_requests_seconds_count{variant=\"C\"}[1m])",
+          "legendFormat": "Variante C (Spring MVC)",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(http_server_requests_seconds_count{variant=\"D\"}[1m])",
+          "legendFormat": "Variante D (Spring Data REST)",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Latence p95 (ms)",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{variant=\"A\"}[5m])) * 1000",
+          "legendFormat": "Variante A",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{variant=\"C\"}[5m])) * 1000",
+          "legendFormat": "Variante C",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{variant=\"D\"}[5m])) * 1000",
+          "legendFormat": "Variante D",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Utilisation CPU (%)",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "process_cpu_usage{variant=\"A\"} * 100",
+          "legendFormat": "Variante A",
+          "refId": "A"
+        },
+        {
+          "expr": "process_cpu_usage{variant=\"C\"} * 100",
+          "legendFormat": "Variante C",
+          "refId": "B"
+        },
+        {
+          "expr": "process_cpu_usage{variant=\"D\"} * 100",
+          "legendFormat": "Variante D",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Utilisation M\u00e9moire (MB)",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "yaxes": [
+        {
+          "format": "decmbytes",
+          "label": "Memory (MB)",
+          "show": true
+        },
+        {
+          "format": "short",
+          "show": false
+        }
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "pointradius": 5,
+      "points": false,
+      "legend": {
+        "show": true,
+        "values": true,
+        "current": true,
+        "max": true,
+        "avg": true
+      },
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "targets": [
+        {
+          "expr": "jvm_memory_used_bytes{variant=\"A\",area=\"heap\"} / 1024 / 1024",
+          "legendFormat": "Variante A - Heap Used",
+          "refId": "A"
+        },
+        {
+          "expr": "jvm_memory_max_bytes{variant=\"A\",area=\"heap\"} / 1024 / 1024",
+          "legendFormat": "Variante A - Heap Max",
+          "refId": "A2"
+        },
+        {
+          "expr": "jvm_memory_used_bytes{variant=\"C\",area=\"heap\"} / 1024 / 1024",
+          "legendFormat": "Variante C - Heap Used",
+          "refId": "B"
+        },
+        {
+          "expr": "jvm_memory_max_bytes{variant=\"C\",area=\"heap\"} / 1024 / 1024",
+          "legendFormat": "Variante C - Heap Max",
+          "refId": "B2"
+        },
+        {
+          "expr": "jvm_memory_used_bytes{variant=\"D\",area=\"heap\"} / 1024 / 1024",
+          "legendFormat": "Variante D - Heap Used",
+          "refId": "C"
+        },
+        {
+          "expr": "jvm_memory_max_bytes{variant=\"D\",area=\"heap\"} / 1024 / 1024",
+          "legendFormat": "Variante D - Heap Max",
+          "refId": "C2"
+        }
+      ]
+    },
+    {
+      "title": "Taux d'Erreur (%)",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "targets": [
+        {
+          "expr": "(rate(http_server_requests_seconds_count{variant=\"A\",status=~\"5..\"}[5m]) / rate(http_server_requests_seconds_count{variant=\"A\"}[5m])) * 100",
+          "legendFormat": "Variante A",
+          "refId": "A"
+        },
+        {
+          "expr": "(rate(http_server_requests_seconds_count{variant=\"C\",status=~\"5..\"}[5m]) / rate(http_server_requests_seconds_count{variant=\"C\"}[5m])) * 100",
+          "legendFormat": "Variante C",
+          "refId": "B"
+        },
+        {
+          "expr": "(rate(http_server_requests_seconds_count{variant=\"D\",status=~\"5..\"}[5m]) / rate(http_server_requests_seconds_count{variant=\"D\"}[5m])) * 100",
+          "legendFormat": "Variante D",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Connexions DB HikariCP",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "targets": [
+        {
+          "expr": "hikaricp_connections_active{variant=\"A\"}",
+          "legendFormat": "Variante A - Active",
+          "refId": "A"
+        },
+        {
+          "expr": "hikaricp_connections_active{variant=\"C\"}",
+          "legendFormat": "Variante C - Active",
+          "refId": "B"
+        },
+        {
+          "expr": "hikaricp_connections_idle{variant=\"A\"}",
+          "legendFormat": "Variante A - Idle",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Temps GC (ms/s)",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "targets": [
+        {
+          "expr": "rate(jvm_gc_pause_seconds_sum{variant=\"A\"}[1m]) * 1000",
+          "legendFormat": "Variante A",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(jvm_gc_pause_seconds_sum{variant=\"C\"}[1m]) * 1000",
+          "legendFormat": "Variante C",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(jvm_gc_pause_seconds_sum{variant=\"D\"}[1m]) * 1000",
+          "legendFormat": "Variante D",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Threads JVM",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "targets": [
+        {
+          "expr": "jvm_threads_live_threads{variant=\"A\"}",
+          "legendFormat": "Variante A - Live",
+          "refId": "A"
+        },
+        {
+          "expr": "jvm_threads_live_threads{variant=\"C\"}",
+          "legendFormat": "Variante C - Live",
+          "refId": "B"
+        },
+        {
+          "expr": "jvm_threads_live_threads{variant=\"D\"}",
+          "legendFormat": "Variante D - Live",
+          "refId": "C"
+        }
+      ]
+    }
+  ],
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "id": null,
+  "uid": "benchmark-comparison",
+  "version": 1,
+  "editable": true,
+  "schemaVersion": 16
+}

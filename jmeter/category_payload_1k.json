@@ -1,0 +1,4 @@
+{
+  "code": "BENCH-${__time(YMD)}-${__Random(1000,9999)}",
+  "name": "Benchmark Category ${__RandomString(40, ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz)}"
+}
